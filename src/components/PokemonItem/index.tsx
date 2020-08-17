@@ -14,13 +14,15 @@ export interface Pokemon {
 
     name: string
     url: string
+    id:string
 
 }
-interface PokemonItemProps {
-    pokemon: Pokemon
+export interface PokemonItemProps {
+    name: string
+    url: string
     
 }
-const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, url }) => {
 
     return (
         <View style={styles.container}>
@@ -28,8 +30,8 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon }) => {
                 {/* <Image style={styles.avatar} source={{ uri: teacher.avatar }} /> */}
 
                 <View style={styles.profileInfo}>
-                    <Text style={styles.name}>{pokemon.name}</Text>
-                    <Text style={styles.subject}>{pokemon.url}</Text>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.subject}>{url}</Text>
                 </View>
             </View>
 

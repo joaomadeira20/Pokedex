@@ -5,8 +5,8 @@ import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 import { Feather } from '@expo/vector-icons'
 import PageHeader from '../../components/PageHeader'
 import api from '../../services/api';
-
-import PokemonItem,{Pokemon} from '../../components/PokemonItem'
+import { useFocusEffect } from '@react-navigation/native'
+import PokemonItem, { Pokemon } from '../../components/PokemonItem'
 
 import styles from './styles';
 function PokemonList() {
@@ -17,16 +17,27 @@ function PokemonList() {
         setIsFiltersVisible(!isFiltersVisible)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPokemons()
-    })
+    },[])
 
-    async function getPokemons(){
-        const response = await api.get('/pokemon/?limit=1000')
-        
+    async function getPokemons() {
+        const response = await api.get('/pokemon/?limit=2000')
+
         console.log(response.data)
-        setPokemons(response.data)
-        console.log(pokemons)
+        setPokemons(response.data.results)
+        const array = response.data.results
+        array.forEach((pokemon:Pokemon) => {
+            const id = pokemon.url.split('pokemon')
+            pokemon.id= id[1]
+            
+        });
+        console.log(array)
+
+
+        const response2 = await api.get('/pokemon/2')
+        
+        console.log(response2.data.sprites.other["official-artwork"])
     }
     return (
         <View style={styles.container}>
@@ -39,27 +50,29 @@ function PokemonList() {
                 }>
             </PageHeader>
             {isFiltersVisible && (
-            <View style={styles.searchForm}>
-                <Text style={styles.label}>Nome</Text>
-                <TextInput style={styles.input} placeholder="Qual o nome ?" placeholderTextColor="#c1bccc" />
+                <View style={styles.searchForm}>
+                    <Text style={styles.label}>Nome</Text>
+                    <TextInput style={styles.input} placeholder="Qual o nome ?" placeholderTextColor="#c1bccc" />
 
 
-                
 
-                <RectButton style={styles.submitButton}>
-                    <Text style={styles.submitButtonText}>Filtrar</Text>
-                </RectButton>
-            </View>
+
+                    <RectButton style={styles.submitButton}>
+                        <Text style={styles.submitButtonText}>Filtrar</Text>
+                    </RectButton>
+                </View>
             )}
 
-             <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
-                {pokemons.map((pokemon:Pokemon) => {
+            <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
+                
+
+                {pokemons.map((pokemon: Pokemon) => {
                     return (
-                        <PokemonItem key={1} pokemon={pokemon} />
+                        <PokemonItem  name={pokemon.name} url={pokemon.url} />
                     )
                 })
                 }
-            </ScrollView> 
+            </ScrollView>
 
         </View>
     );
