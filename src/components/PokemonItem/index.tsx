@@ -14,7 +14,7 @@ export interface Pokemon {
 
     name: string
     url: string
-    id:string
+    id:number
 
 }
 export interface PokemonItemProps {

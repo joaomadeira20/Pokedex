@@ -23,21 +23,24 @@ function PokemonList() {
 
     async function getPokemons() {
         const response = await api.get('/pokemon/?limit=2000')
-
-        console.log(response.data)
+        // console.log(response.data)
         setPokemons(response.data.results)
         const array = response.data.results
         array.forEach((pokemon:Pokemon) => {
-            const id = pokemon.url.split('pokemon')
-            pokemon.id= id[1]
+            const id = pokemon.url.split('pokemon/')
+            const id2= id[1].split('/')
+            pokemon.id= parseInt(id2[0])
+            console.log(pokemon.id)
+            
             
         });
-        console.log(array)
+        // console.log(array)
 
-
-        const response2 = await api.get('/pokemon/2')
         
-        console.log(response2.data.sprites.other["official-artwork"])
+
+        // const response2 = await api.get('/pokemon/2')
+        
+        // console.log(response2.data.sprites.other["official-artwork"])
     }
     return (
         <View style={styles.container}>
@@ -66,9 +69,9 @@ function PokemonList() {
             <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
                 
 
-                {pokemons.map((pokemon: Pokemon) => {
+                {pokemons.map((pokemon: Pokemon, i) => {
                     return (
-                        <PokemonItem  name={pokemon.name} url={pokemon.url} />
+                        <PokemonItem key={i} name={pokemon.name} url={pokemon.url} />
                     )
                 })
                 }
