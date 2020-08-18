@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 16,
         overflow: 'hidden',
-        width: 137,
-        height: 75
+        width: 200,
+        height: 200,
+        alignItems:'center',
+        justifyContent:'center'
     },
 
     profile: {
@@ -18,16 +20,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 24
     },
-
     avatar: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        backgroundColor: '#eee'
-    },
-
-    profileInfo: {
-        marginLeft: 16
+        width: 100,
+        height: 100,
+        
     },
     name: {
         fontFamily: 'Archivo_700Bold',
@@ -40,7 +36,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 4
     },
-    
+
 })
 
 export default styles
