@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 16,
         overflow: 'hidden',
-        width: 137,
-        height: 75
     },
 
     profile: {
@@ -18,16 +16,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 24
     },
-
     avatar: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        backgroundColor: '#eee'
-    },
-
-    profileInfo: {
-        marginLeft: 16
+        width: 100,
+        height: 100,
     },
     name: {
         fontFamily: 'Archivo_700Bold',
