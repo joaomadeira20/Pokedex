@@ -59,7 +59,7 @@ function PokemonList() {
 
             <FlatList data={(pokemons)}
                 keyExtractor={(pokemons: Pokemon,i) => `${i}`}
-                numColumns={4}
+                numColumns={2}
                 renderItem={({ item }) => <PokemonItem url={item.url} name={item.name} image={item.image} 
                 ></PokemonItem>}>
 

@@ -25,7 +25,12 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
 
     return (
         <View style={styles.container}>
-            <Image style={styles.avatar} source={{ uri: image }} />
+
+            
+                <Image style={styles.avatar} source={{ uri: image }} />
+                <Text style={styles.name}>{name}</Text>
+                
+            
         </View>
 
     )
