@@ -33,9 +33,6 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
 
         </View>
 
-
-
-
     )
 }
 
