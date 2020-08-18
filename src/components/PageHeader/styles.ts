@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
         color:'#fff',
         fontSize:24,
         lineHeight:32,
-        maxWidth:160,
-        marginVertical:40
+        maxWidth:160,marginVertical:10
+        
     },
     header:{
         flexDirection:'row',

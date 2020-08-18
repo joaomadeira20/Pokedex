@@ -14,29 +14,30 @@ export interface Pokemon {
 
     name: string
     url: string
-    id:number
-
+    id: number
+    link:string
 }
 export interface PokemonItemProps {
     name: string
     url: string
-    
+    link:string
 }
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, url }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, link }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.profile}>
-                {/* <Image style={styles.avatar} source={{ uri: teacher.avatar }} /> */}
 
-                <View style={styles.profileInfo}>
-                    <Text style={styles.name}>{name}</Text>
-                    <Text style={styles.subject}>{url}</Text>
-                </View>
+            {/* <Image style={styles.avatar} source={{ uri: teacher.avatar }} /> */}
+
+            <View style={styles.profileInfo}>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.url}>{url}</Text>
+                <Image style={styles.avatar} source={{uri:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"}} />
             </View>
 
+
         </View>
-        
+
     )
 }
 

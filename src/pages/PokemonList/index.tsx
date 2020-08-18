@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, TextInput } from 'react-native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import { BorderlessButton, RectButton, FlatList } from 'react-native-gesture-handler'
 import { Feather } from '@expo/vector-icons'
 import PageHeader from '../../components/PageHeader'
 import api from '../../services/api';
@@ -19,27 +19,30 @@ function PokemonList() {
 
     useEffect(() => {
         getPokemons()
-    },[])
+    }, [])
 
     async function getPokemons() {
         const response = await api.get('/pokemon/?limit=2000')
         // console.log(response.data)
         setPokemons(response.data.results)
         const array = response.data.results
-        array.forEach((pokemon:Pokemon) => {
+         array.forEach(async(pokemon: Pokemon) => {
             const id = pokemon.url.split('pokemon/')
-            const id2= id[1].split('/')
-            pokemon.id= parseInt(id2[0])
-            console.log(pokemon.id)
+            const id2 = id[1].split('/')
+            pokemon.id = parseInt(id2[0])
             
-            
-        });
-        // console.log(array)
+            const response2 = await api.get(`https://pokeapi.co/api/v2/pokemon/${id2[0]}`)
+            console.log(response2.data.sprites)
+            pokemon.link = response2.data.sprites.front_default
 
+
+        });
         
+
+
 
         // const response2 = await api.get('/pokemon/2')
-        
+
         // console.log(response2.data.sprites.other["official-artwork"])
     }
     return (
@@ -66,7 +69,7 @@ function PokemonList() {
                 </View>
             )}
 
-            <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
+            {/* <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
                 
 
                 {pokemons.map((pokemon: Pokemon, i) => {
@@ -75,7 +78,14 @@ function PokemonList() {
                     )
                 })
                 }
-            </ScrollView>
+            </ScrollView> */}
+
+            <FlatList numColumns={2} data={(pokemons)}
+                keyExtractor={(pokemons: Pokemon, i) => `${i}`}
+                renderItem={({ item }) => <PokemonItem url={item.url} name={item.name} link={item.link}
+                ></PokemonItem>}>
+
+            </FlatList>
 
         </View>
     );
