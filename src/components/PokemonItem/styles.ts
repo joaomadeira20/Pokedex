@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { ScaleFromCenterAndroid } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets'
 
 const styles = StyleSheet.create({
     container: {
@@ -8,10 +9,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 16,
         overflow: 'hidden',
-        width:200,
-        height:75,
-        
-        
+        width: 137,
+        height: 75
     },
 
     profile: {
