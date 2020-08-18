@@ -10,8 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api'
 
 export interface Pokemon {
-
-
+    image: string
     name: string
     url: string
     id:number
@@ -20,9 +19,9 @@ export interface Pokemon {
 export interface PokemonItemProps {
     name: string
     url: string
-    
+    image: string
 }
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, url }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
 
     return (
         <View style={styles.container}>
@@ -30,6 +29,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, url }) => {
                 {/* <Image style={styles.avatar} source={{ uri: teacher.avatar }} /> */}
 
                 <View style={styles.profileInfo}>
+                    <Image source={{uri: image}} />
                     <Text style={styles.name}>{name}</Text>
                     <Text style={styles.subject}>{url}</Text>
                 </View>

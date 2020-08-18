@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Text, TextInput } from 'react-native';
+import { View, ScrollView, Text, TextInput, FlatList } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 import { Feather } from '@expo/vector-icons'
 import PageHeader from '../../components/PageHeader'
@@ -19,29 +19,22 @@ function PokemonList() {
 
     useEffect(() => {
         getPokemons()
-    },[])
+    }, [])
 
     async function getPokemons() {
         const response = await api.get('/pokemon/?limit=2000')
         // console.log(response.data)
         setPokemons(response.data.results)
         const array = response.data.results
-        array.forEach((pokemon:Pokemon) => {
-            const id = pokemon.url.split('pokemon/')
-            const id2= id[1].split('/')
-            pokemon.id= parseInt(id2[0])
-            console.log(pokemon.id)
-            
-            
+        array.forEach( async (pokemon: Pokemon) => {          
+            let id = pokemon.url.split('pokemon/')
+            const id2 = id[1].split('/')
+            const response2 = await api.get(`/pokemon/${id2[0]}`)
+            pokemon.id = parseInt(id2[0])
+            pokemon.image = response2.data.sprites.front_default
         });
-        // console.log(array)
-
-        
-
-        // const response2 = await api.get('/pokemon/2')
-        
-        // console.log(response2.data.sprites.other["official-artwork"])
     }
+
     return (
         <View style={styles.container}>
             <PageHeader
@@ -57,27 +50,22 @@ function PokemonList() {
                     <Text style={styles.label}>Nome</Text>
                     <TextInput style={styles.input} placeholder="Qual o nome ?" placeholderTextColor="#c1bccc" />
 
-
-
-
                     <RectButton style={styles.submitButton}>
                         <Text style={styles.submitButtonText}>Filtrar</Text>
                     </RectButton>
                 </View>
             )}
 
-            <ScrollView style={styles.teacherList} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}>
-                
 
-                {pokemons.map((pokemon: Pokemon, i) => {
-                    return (
-                        <PokemonItem key={i} name={pokemon.name} url={pokemon.url} />
-                    )
-                })
-                }
-            </ScrollView>
+            <FlatList data={(pokemons)}
+                keyExtractor={(pokemons: Pokemon,i) => `${i}`}
+                numColumns={3}
+                renderItem={({ item }) => <PokemonItem url={item.url} name={item.name} image={item.image} 
+                ></PokemonItem>}>
 
-        </View>
+            </FlatList>
+
+        </View >
     );
 
 }
