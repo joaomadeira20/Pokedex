@@ -12,18 +12,27 @@ import { useNavigation } from '@react-navigation/native'
 export interface Pokemon {
     image: string
     name: string
-    url: string
-    id: number
-    
+    url?: string
+    id?: number
+    abilities?: []
+    moves?: []
+    stats?: []
+    types: string
 
 }
 export interface PokemonItemProps {
-    name: string
     image: string
+    name: string
+    url?: string
+    id?: number
+    abilities?: []
+    moves?: []
+    stats?: []
+    types: string
     
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
     const { navigate } = useNavigation()
     
     return (
@@ -32,6 +41,9 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
             <RectButton onPress={() => navigate('PokemonDetails', {name})}>
             <Image style={styles.avatar} source={{ uri: image }} />
             <Text style={styles.name}>{name}</Text>
+            
+      
+            <Text style={styles.name}>{types}</Text>
             </RectButton>
             
 

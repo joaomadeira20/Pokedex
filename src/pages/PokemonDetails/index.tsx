@@ -13,12 +13,14 @@ interface PokemonProps {
     name: string
     
 }
-const PokemonDetails: React.FC<PokemonProps> = ({ name,   }) => {
+
+const PokemonDetails : React.FC<PokemonProps> = ({ name,   }) => {
+    
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
     }
-   
+
     return (
         <View>
             <PageHeader

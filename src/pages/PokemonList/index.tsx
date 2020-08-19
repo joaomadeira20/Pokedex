@@ -38,7 +38,8 @@ function PokemonList({ }) {
             pokemon.abilities = response2.data.abilities
             pokemon.moves = response2.data.moves
             pokemon.stats = response2.data.stats
-            pokemon.types = response2.data.types
+            pokemon.types =  response2.data.types[0].type.name
+            console.log(pokemon.types)
         });
     }
 
@@ -60,6 +61,7 @@ function PokemonList({ }) {
                     <RectButton style={styles.submitButton}>
                         <Text style={styles.submitButtonText}>Filtrar</Text>
                     </RectButton>
+                    
                 </View>
             )}
 
