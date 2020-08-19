@@ -3,19 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, TextInput, FlatList } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 import { Feather } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import PageHeader from '../../components/PageHeader'
 import api from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native'
 import PokemonItem, { Pokemon } from '../../components/PokemonItem'
 
 import styles from './styles';
-function PokemonList() {
+function PokemonList({ }) {
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     const [pokemons, setPokemons] = useState([])
+    const { navigate } = useNavigation()
 
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
     }
+    
 
     useEffect(() => {
         getPokemons()
