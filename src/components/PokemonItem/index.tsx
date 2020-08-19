@@ -8,33 +8,32 @@ import whatsappIcon from '../../assets/images/icons/whatsapp.png'
 
 import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api'
-
+import { useNavigation } from '@react-navigation/native'
 export interface Pokemon {
     image: string
     name: string
     url: string
-    abilities: []
-    moves: []
-    stats: []
-    types: []
-    // id: number
+    id: number
+    
 
 }
 export interface PokemonItemProps {
     name: string
     image: string
-    types: string[]
-
+    
 }
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
 
-
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, url, image }) => {
+    const { navigate } = useNavigation()
+    
     return (
-        <View style={styles.container}>
-            
-            
+        <View style={styles.container} >
+
+            <RectButton onPress={() => navigate('PokemonDetails', {name})}>
             <Image style={styles.avatar} source={{ uri: image }} />
             <Text style={styles.name}>{name}</Text>
+            </RectButton>
+            
 
 
         </View>
