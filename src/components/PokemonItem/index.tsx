@@ -50,11 +50,12 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
             <Image style={styles.avatar} source={{ uri: image }} />
             <Text style={styles.name}>{name}</Text>
 
-            
+            <View style={styles.typesContainer}>
              { 
-                types && types.map((item, i)=><Text key={i} style={styles.name}>{item.type.name}</Text>)
+                types && types.map((item, i)=><Text style={styles.typeItem} key={i} >{item.type.name} {''}</Text>)
                    
              }  
+             </View>
            
             
             </RectButton>
