@@ -23,11 +23,9 @@ export interface Pokemon {
 interface type{
     name:string,  url:string, slot:string
 }
-interface slott{
-     slot:string
-}
+
 interface typao{
-    slot:slott
+    type:type
 }
 export interface PokemonItemProps {
     image: string
@@ -43,6 +41,10 @@ export interface PokemonItemProps {
 
 const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
     const { navigate } = useNavigation()
+    function teste(){
+        
+        
+    }
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
@@ -52,7 +54,10 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
             <Text style={styles.name}>{name}</Text>
 
             
-             {/* { console.log(types.forEach((e:type)=>e.slot))}  */}
+             { 
+                types && types.map((item, i)=><Text key={i} style={styles.name}>{item.type.name}</Text>)
+                   
+             }  
            
             
             </RectButton>
