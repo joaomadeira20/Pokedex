@@ -41,10 +41,7 @@ export interface PokemonItemProps {
 
 const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
     const { navigate } = useNavigation()
-    function teste(){
-        
-        
-    }
+    
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
