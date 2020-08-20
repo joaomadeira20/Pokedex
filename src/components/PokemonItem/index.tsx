@@ -14,12 +14,21 @@ export interface Pokemon {
     name: string
     url?: string
     id?: number
-    abilities?: []
+    abilities?: habilidades[]
     moves?: []
     stats?: []
     types: typao[]
 
 }
+
+interface ability{
+    name:string,  url:string
+}
+
+interface habilidades{
+    type:ability
+}
+
 interface type{
     name:string,  url:string, slot:string
 }
@@ -32,21 +41,21 @@ export interface PokemonItemProps {
     name: string
     url?: string
     id?: number
-    abilities?: []
+    abilities?: habilidades[]
     moves?: []
     stats?: []
     types: typao[]
     
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities}) => {
     const { navigate } = useNavigation()
     
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', {name})}>
+            <RectButton onPress={() => navigate('PokemonDetails', {name, abilities})}>
             <Image style={styles.avatar} source={{ uri: image }} />
             <Text style={styles.name}>{name}</Text>
 

@@ -27,7 +27,7 @@ function PokemonList({ }) {
     async function getPokemons() {
         const response = await api.get('/pokemon/?limit=5')
         // console.log(response.data)
-        
+
         const array = response.data.results
         array.forEach(async (pokemon: Pokemon) => {
             // let id = pokemon.url.split('pokemon/')
@@ -40,19 +40,12 @@ function PokemonList({ }) {
             pokemon.stats = response2.data.stats
             pokemon.types = response2.data.types
             setPokemons(array)
-            
-});
 
-        
+        });
+
+
     }
-function lista(){
-    return  <FlatList data={(pokemons)}
-    keyExtractor={(pokemons: Pokemon, i) => `${i}`}
-    numColumns={2}
-    renderItem={({ item }) => <PokemonItem name={item.name} image={item.image} types={item.types}
-    ></PokemonItem>}>
-</FlatList>
-}
+
     return (
         <View style={styles.container}>
             <PageHeader
@@ -74,12 +67,16 @@ function lista(){
 
                 </View>
             )}
-{
-lista()}
-            
-           
-            
-            
+
+
+
+            <FlatList data={(pokemons)}
+                keyExtractor={(pokemons: Pokemon, i) => `${i}`}
+                numColumns={2}
+                renderItem={({ item }) => <PokemonItem name={item.name} image={item.image} types={item.types} abilities={item.abilities}
+                ></PokemonItem>}>
+            </FlatList>
+
 
         </View >
     );
