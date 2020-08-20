@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         width: 200,
         height: 200,
-        alignItems:'center',
-        justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     profile: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: 100,
         height: 100,
-        
+
     },
     name: {
         fontFamily: 'Archivo_700Bold',
@@ -36,6 +36,25 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 4
     },
+    typesContainer: {
+        
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center'
+        
+
+    },
+    typeItem: {
+        backgroundColor: '#68a0cf',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#fff',
+        
+        padding:5,
+        margin:0
+        
+    }
+
 
 })
 
