@@ -7,15 +7,23 @@ import PageHeader from '../../components/PageHeader';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons'
 import { Pokemon } from '../../components/PokemonItem';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 
 interface PokemonProps {
     name: string
     
-}
-
-const PokemonDetails : React.FC<PokemonProps> = ({ name,   }) => {
     
+}
+type ParamList = {
+    Detail: {
+      name: string;
+    };
+  };
+
+const PokemonDetails : React.FC<PokemonProps> = ({    }) => {
+    const route = useRoute<RouteProp<ParamList, 'Detail'>>();
+    console.log(route.params)
+    const name = route.params.name
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
@@ -33,6 +41,7 @@ const PokemonDetails : React.FC<PokemonProps> = ({ name,   }) => {
             </PageHeader>
 
             <Text>{name}</Text>
+            
             
 
         </View >

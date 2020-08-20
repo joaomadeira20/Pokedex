@@ -10,6 +10,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import PokemonItem, { Pokemon } from '../../components/PokemonItem'
 
 import styles from './styles';
+
 function PokemonList({ }) {
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     const [pokemons, setPokemons] = useState([])
@@ -18,18 +19,17 @@ function PokemonList({ }) {
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
     }
-    
 
     useEffect(() => {
         getPokemons()
     }, [])
 
     async function getPokemons() {
-        const response = await api.get('/pokemon/?limit=2000')
+        const response = await api.get('/pokemon/?limit=5')
         // console.log(response.data)
-        setPokemons(response.data.results)
+        
         const array = response.data.results
-        array.forEach( async (pokemon: Pokemon) => {          
+        array.forEach(async (pokemon: Pokemon) => {
             // let id = pokemon.url.split('pokemon/')
             // const id2 = id[1].split('/')
             const response2 = await api.get(`/pokemon/${pokemon.name}`)
@@ -38,11 +38,21 @@ function PokemonList({ }) {
             pokemon.abilities = response2.data.abilities
             pokemon.moves = response2.data.moves
             pokemon.stats = response2.data.stats
-            pokemon.types =  response2.data.types[0].type.name
-            console.log(pokemon.types)
-        });
-    }
+            pokemon.types = response2.data.types
+            setPokemons(array)
+            
+});
 
+        
+    }
+function lista(){
+    return  <FlatList data={(pokemons)}
+    keyExtractor={(pokemons: Pokemon, i) => `${i}`}
+    numColumns={2}
+    renderItem={({ item }) => <PokemonItem name={item.name} image={item.image} types={item.types}
+    ></PokemonItem>}>
+</FlatList>
+}
     return (
         <View style={styles.container}>
             <PageHeader
@@ -61,17 +71,15 @@ function PokemonList({ }) {
                     <RectButton style={styles.submitButton}>
                         <Text style={styles.submitButtonText}>Filtrar</Text>
                     </RectButton>
-                    
+
                 </View>
             )}
-
-
-            <FlatList data={(pokemons)}
-                keyExtractor={(pokemons: Pokemon,i) => `${i}`}
-                numColumns={2}
-                renderItem={({ item }) => <PokemonItem name={item.name} image={item.image} types={item.types}
-                ></PokemonItem>}>
-            </FlatList>
+{
+lista()}
+            
+           
+            
+            
 
         </View >
     );
