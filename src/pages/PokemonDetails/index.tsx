@@ -15,13 +15,11 @@ interface PokemonProps {
     abilities: habilidades[]
     stats: estatisticas[]
     image: string
-    images: other[]
+    images: other
     types:typao[]
 }
 
-interface other {
-    other: []
-}
+
 
 interface ability {
     name: string, url: string
@@ -47,13 +45,22 @@ interface type {
 interface typao {
     type: type
 }
+interface other {
+    other: oficialatw
+}
+interface oficialatw{
+    'official-artwork':front
+}
+interface front{
+    front_default:string
+}
 type ParamList = {
     Detail: {
         name: string;
         abilities: habilidades[];
         stats: estatisticas[];
         image: string
-        images: other[]
+        images: other
         types:typao[]
     };
 };
