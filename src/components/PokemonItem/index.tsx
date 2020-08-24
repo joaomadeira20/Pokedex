@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api'
 import { useNavigation } from '@react-navigation/native'
 export interface Pokemon {
-    images: []
+    image: string
     name: string
     url?: string
     id?: number
@@ -18,10 +18,12 @@ export interface Pokemon {
     moves?: []
     stats: estatisticas[]
     types: typao[]
-    image2:string
+    images: other[]
 
 }
-
+interface other {
+    url: string
+}
 interface stat {
     name: string
 }
@@ -48,7 +50,7 @@ interface typao {
     type: type
 }
 export interface PokemonItemProps {
-    images: []
+    image: string
     name: string
     url?: string
     id?: number
@@ -56,20 +58,20 @@ export interface PokemonItemProps {
     moves?: []
     stats: estatisticas[]
     types: typao[]
-    image2:string
+    images: other[]
 
 
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, images, types, abilities, image2, stats}) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities, images, stats}) => {
     const { navigate } = useNavigation()
 
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities, images, image2, stats })}>
-                { images &&<Image style={styles.avatar} source={{ uri: images.front_shiny }} />}
+            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities, image, images, stats })}>
+                <Image style={styles.avatar} source={{ uri: image }} />
                 <Text style={styles.name}>{name}</Text>
                 <View style={styles.typesContainer}>
                     {

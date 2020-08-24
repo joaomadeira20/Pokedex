@@ -15,7 +15,11 @@ interface PokemonProps {
     abilities: habilidades[]
     stats: estatisticas[]
     image: string
-    image2: string
+    images: other[]
+}
+
+interface other {
+    other: []
 }
 
 interface ability {
@@ -42,7 +46,7 @@ type ParamList = {
         abilities: habilidades[];
         stats: estatisticas[];
         image: string
-        image2: string
+        images: other[]
     };
 };
 
@@ -52,7 +56,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const abilities = route.params.abilities
     const stats = route.params.stats
     const image = route.params.image
-    const image2 = route.params.image2
+    const images = route.params.images
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
@@ -74,7 +78,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             </PageHeader>
             <View style={styles.profile}>
                 <Text style={styles.name}>{toUpperCase(name)}</Text>
-                <Image style={styles.avatar} source={{ uri: image2 }} />
+                { images && <Image style={styles.avatar} source={{ uri: images.other["official-artwork"].front_default }} />}
             </View>
 
 
