@@ -35,7 +35,13 @@ interface estatisticas {
     effort: number,
     stat: stat
 }
+interface type {
+    name: string, url: string, slot: string
+}
 
+interface typao {
+    type: type
+}
 type ParamList = {
     Detail: {
         name: string;
@@ -43,6 +49,7 @@ type ParamList = {
         stats: estatisticas[];
         image: string
         image2: string
+        types:typao[]
     };
 };
 
@@ -53,6 +60,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const stats = route.params.stats
     const image = route.params.image
     const image2 = route.params.image2
+    const types = route.params.types
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
@@ -78,7 +86,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             </View>
 
 
-            <Text>{name}</Text>
+            
 
             {
                 abilities && abilities.map((item, i) => <Text key={i} >{item.ability.name}</Text>)
@@ -88,6 +96,9 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             {
                 stats && stats.map((item, i) => <Text key={i} >{item.stat.name} - {item.base_stat}</Text>)
 
+            }
+            {
+                types && types.map((item, i)=> <Text key={i} >{item.type.name} </Text>)
             }
 
         </View >

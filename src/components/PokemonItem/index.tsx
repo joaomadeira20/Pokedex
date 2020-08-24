@@ -61,6 +61,7 @@ export interface PokemonItemProps {
 
 }
 
+
 const PokemonItem: React.FC<PokemonItemProps> = ({ name, images, types, abilities, image2, stats}) => {
     function toUpperCase(str:string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -71,8 +72,8 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, images, types, abilitie
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities, images, image2, stats })}>
-                { images &&<Image style={styles.avatar} source={{ uri: images.front_shiny }} />}
+            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities, images, image2, stats,types })}>
+                { images &&<Image style={styles.avatar} source={{ uri: images.front_default }} />}
                 <Text style={styles.name}>{toUpperCase(name)}</Text>
                 <View style={styles.typesContainer}>
                     {
