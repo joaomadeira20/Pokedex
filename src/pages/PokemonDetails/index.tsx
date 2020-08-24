@@ -55,6 +55,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         <View>
             <PageHeader
                 title="Pokedex da rapaziada"
+                n='eae'
                 headerRight={
                     <BorderlessButton onPress={handleToggleFiltersVisible}>
                         <Feather name="filter" size={20} color="#fff" />
