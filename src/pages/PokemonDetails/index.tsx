@@ -34,7 +34,6 @@ type ParamList = {
 
 const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const route = useRoute<RouteProp<ParamList, 'Detail'>>();
-    console.log(route.params)
     const name = route.params.name
     const abilities = route.params.abilities
     const image = route.params.image
@@ -58,6 +57,8 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 <Image style={styles.avatar} source={{uri:image}} />
             </View>
 
+
+            <Text>{name}</Text>
 
             {
                 abilities && abilities.map((item, i) => <Text key={i} >{item.ability.name}</Text>)

@@ -21,20 +21,20 @@ export interface Pokemon {
 
 }
 
-interface ability{
-    name:string,  url:string
+interface ability {
+    name: string, url: string
 }
 
-interface habilidades{
-    type:ability
+interface habilidades {
+    type: ability
 }
 
-interface type{
-    name:string,  url:string, slot:string
+interface type {
+    name: string, url: string, slot: string
 }
 
-interface typao{
-    type:type
+interface typao {
+    type: type
 }
 export interface PokemonItemProps {
     image: string
@@ -45,30 +45,30 @@ export interface PokemonItemProps {
     moves?: []
     stats?: []
     types: typao[]
-    
+
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities}) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities }) => {
     const { navigate } = useNavigation()
-    
+
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', {name, abilities, image})}>
-            <Image style={styles.avatar} source={{ uri: image }} />
-            <Text style={styles.name}>{name}</Text>
+            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities })}>
+                <Image style={styles.avatar} source={{ uri: image }} />
+                <Text style={styles.name}>{name}</Text>
 
-            <View style={styles.typesContainer}>
-             { 
-                types && types.map((item, i)=><Text style={styles.typeItem} key={i} >{item.type.name} {''}</Text>)
-                   
-             }  
-             </View>
-           
-            
+                <View style={styles.typesContainer}>
+                    {
+                        types && types.map((item, i) => <Text style={styles.typeItem} key={i} >{item.type.name} {''}</Text>)
+
+                    }
+                </View>
+
+
             </RectButton>
-            
+
 
 
         </View>

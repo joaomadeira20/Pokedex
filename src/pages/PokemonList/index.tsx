@@ -25,7 +25,7 @@ function PokemonList({ }) {
     }, [])
 
     async function getPokemons() {
-        const response = await api.get('/pokemon/?limit=5')
+        const response = await api.get('/pokemon/?limit=100')
         // console.log(response.data)
 
         const array = response.data.results
