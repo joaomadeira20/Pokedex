@@ -13,9 +13,9 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 interface PokemonProps {
     name: string
     abilities: habilidades[]
+    stats: estatisticas[]
     image: string
     image2: string
-
 }
 
 interface ability {
@@ -26,10 +26,21 @@ interface habilidades {
     ability: ability
 }
 
+interface stat {
+    name: string
+}
+
+interface estatisticas {
+    base_stat: number,
+    effort: number,
+    stat: stat
+}
+
 type ParamList = {
     Detail: {
         name: string;
         abilities: habilidades[];
+        stats: estatisticas[];
         image: string
         image2: string
     };
@@ -39,14 +50,14 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const route = useRoute<RouteProp<ParamList, 'Detail'>>();
     const name = route.params.name
     const abilities = route.params.abilities
+    const stats = route.params.stats
     const image = route.params.image
     const image2 = route.params.image2
-    
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
     }
-    function toUpperCase(str:string) {
+    function toUpperCase(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
@@ -74,7 +85,10 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
 
             }
 
+            {
+                stats && stats.map((item, i) => <Text key={i} >{item.stat.name} - {item.base_stat}</Text>)
 
+            }
 
         </View >
     );

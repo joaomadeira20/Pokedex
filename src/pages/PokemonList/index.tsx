@@ -34,7 +34,7 @@ function PokemonList({ }) {
             // const id2 = id[1].split('/')
             const response2 = await api.get(`/pokemon/${pokemon.name}`)
             // pokemon.id = parseInt(id2[0])
-            pokemon.image = response2.data.sprites.front_default
+            pokemon.images = response2.data.sprites
             pokemon.abilities = response2.data.abilities
             pokemon.moves = response2.data.moves
             pokemon.stats = response2.data.stats
@@ -76,7 +76,7 @@ function PokemonList({ }) {
             <FlatList data={(pokemons)}
                 keyExtractor={(pokemons: Pokemon, i) => `${i}`}
                 numColumns={2}
-                renderItem={({ item }) => <PokemonItem name={item.name} image={item.image} types={item.types} abilities={item.abilities} image2={item.image2}
+                renderItem={({ item }) => <PokemonItem name={item.name} images={item.images} types={item.types} abilities={item.abilities} image2={item.image2} stats={item.stats}
                 ></PokemonItem>}>
             </FlatList>
 
