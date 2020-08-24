@@ -41,8 +41,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const abilities = route.params.abilities
     const image = route.params.image
     const image2 = route.params.image2
-    // console.log(image2)
-    console.log(image)
+    
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
