@@ -55,7 +55,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', {name, abilities})}>
+            <RectButton onPress={() => navigate('PokemonDetails', {name, abilities, image})}>
             <Image style={styles.avatar} source={{ uri: image }} />
             <Text style={styles.name}>{name}</Text>
 

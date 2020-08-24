@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Text, TextInput, FlatList } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import PageHeader from '../../components/PageHeader';
 
@@ -12,6 +12,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 interface PokemonProps {
     name: string
     abilities: habilidades[]
+    image:string
 
 }
 
@@ -27,6 +28,7 @@ type ParamList = {
     Detail: {
         name: string;
         abilities: habilidades[];
+        image:string
     };
 };
 
@@ -35,6 +37,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     console.log(route.params)
     const name = route.params.name
     const abilities = route.params.abilities
+    const image = route.params.image
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
@@ -50,9 +53,12 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                     </BorderlessButton>
                 }>
             </PageHeader>
+            <View style={styles.profile}>
+                <Text>{name}</Text>
+                <Image style={styles.avatar} source={{uri:image}} />
+            </View>
 
-            <Text>{name}</Text>
-            
+
             {
                 abilities && abilities.map((item, i) => <Text key={i} >{item.ability.name}</Text>)
 
