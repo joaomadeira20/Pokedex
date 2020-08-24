@@ -25,7 +25,7 @@ function PokemonList({ }) {
     }, [])
 
     async function getPokemons() {
-        const response = await api.get('/pokemon/?limit=100')
+        const response = await api.get('/pokemon/?limit=5')
         // console.log(response.data)
 
         const array = response.data.results
@@ -39,6 +39,8 @@ function PokemonList({ }) {
             pokemon.moves = response2.data.moves
             pokemon.stats = response2.data.stats
             pokemon.types = response2.data.types
+            pokemon.image2 = response2.data.sprites.other["official-artwork"].front_default
+             console.log(pokemon.image2)
             setPokemons(array)
 
         });
@@ -73,7 +75,7 @@ function PokemonList({ }) {
             <FlatList data={(pokemons)}
                 keyExtractor={(pokemons: Pokemon, i) => `${i}`}
                 numColumns={2}
-                renderItem={({ item }) => <PokemonItem name={item.name} images={item.images} types={item.types} abilities={item.abilities} stats={item.stats}
+                renderItem={({ item }) => <PokemonItem name={item.name} images={item.images} types={item.types} abilities={item.abilities} image2={item.image2} stats={item.stats}
                 ></PokemonItem>}>
             </FlatList>
 
