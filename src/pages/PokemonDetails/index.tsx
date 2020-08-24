@@ -9,10 +9,12 @@ import { Feather } from '@expo/vector-icons'
 import { Pokemon } from '../../components/PokemonItem';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 
+
 interface PokemonProps {
     name: string
     abilities: habilidades[]
-    image:string
+    image: string
+    image2: string
 
 }
 
@@ -28,7 +30,8 @@ type ParamList = {
     Detail: {
         name: string;
         abilities: habilidades[];
-        image:string
+        image: string
+        image2: string
     };
 };
 
@@ -37,9 +40,15 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const name = route.params.name
     const abilities = route.params.abilities
     const image = route.params.image
+    const image2 = route.params.image2
+    // console.log(image2)
+    console.log(image)
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
+    }
+    function toUpperCase(str:string) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
     return (
@@ -53,8 +62,8 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 }>
             </PageHeader>
             <View style={styles.profile}>
-                <Text>{name}</Text>
-                <Image style={styles.avatar} source={{uri:image}} />
+                <Text style={styles.name}>{toUpperCase(name)}</Text>
+                <Image style={styles.avatar} source={{ uri: image2 }} />
             </View>
 
 

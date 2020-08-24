@@ -18,6 +18,7 @@ export interface Pokemon {
     moves?: []
     stats?: []
     types: typao[]
+    image2:string
 
 }
 
@@ -45,22 +46,25 @@ export interface PokemonItemProps {
     moves?: []
     stats?: []
     types: typao[]
+    image2:string
+
 
 }
 
-const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities }) => {
+const PokemonItem: React.FC<PokemonItemProps> = ({ name, image, types, abilities, image2 }) => {
     const { navigate } = useNavigation()
 
     //console.log(typeof(types))
     return (
         <View style={styles.container} >
 
-            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities })}>
+            <RectButton onPress={() => navigate('PokemonDetails', { name, abilities, image, image2 })}>
                 <Image style={styles.avatar} source={{ uri: image }} />
                 <Text style={styles.name}>{name}</Text>
-
+{}
                 <View style={styles.typesContainer}>
                     {
+                        
                         types && types.map((item, i) => <Text style={styles.typeItem} key={i} >{item.type.name} {''}</Text>)
 
                     }

@@ -2,13 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     profile:{
-        backgroundColor:'#FFF'
+        alignItems:"center",
+        justifyContent:"center"
     },
     avatar: {
         width: 200,
         height: 200,
-        backgroundColor: '#ccc'
-
+    },
+    name:{
+        fontSize:20,
+        
     }
 })
 
