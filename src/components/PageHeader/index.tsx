@@ -10,26 +10,29 @@ import { useNavigation } from '@react-navigation/native'
 interface PageHeaderProps {
     title: string
     headerRight?: ReactNode
+    n?: string
+    m?:string
 }
-const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight, n,m }) => {
     const { navigate } = useNavigation()
     function handleGoBack() {
-         navigate('Landing')
+        navigate('Landing')
     }
 
     return (
         
         <View style={styles.container} >
-            <View style={styles.topBar}>
+            {n && <View style={styles.topBar}>
                 <BorderlessButton onPress={handleGoBack}>
                     <Image source={backIcon} resizeMode="contain" />
                 </BorderlessButton>
 
                 {/* <Image source={logoImg} resizeMode="contain" /> */}
-            </View>
+            </View>}
+            
             <View style={styles.header}>
                 <Text style={styles.title}>{title}</Text>
-                {headerRight}
+                {m && headerRight}
             </View>
 
             {children}
