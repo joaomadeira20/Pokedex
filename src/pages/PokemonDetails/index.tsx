@@ -16,7 +16,7 @@ interface PokemonProps {
     stats: estatisticas[]
     image: string
     images: other
-    types:typao[]
+    types: typao[]
 }
 
 
@@ -48,11 +48,11 @@ interface typao {
 interface other {
     other: oficialatw
 }
-interface oficialatw{
-    'official-artwork':front
+interface oficialatw {
+    'official-artwork': front
 }
-interface front{
-    front_default:string
+interface front {
+    front_default: string
 }
 type ParamList = {
     Detail: {
@@ -61,7 +61,7 @@ type ParamList = {
         stats: estatisticas[];
         image: string
         images: other
-        types:typao[]
+        types: typao[]
     };
 };
 
@@ -80,6 +80,26 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     function toUpperCase(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+    function getBackgroundColor(name:string){
+        console.log(name)
+            if(name==='grass'){
+                return {
+                    backgroundColor:'#008000'
+                }
+            }
+            else if(name==='poison'){
+                return{
+                    backgroundColor:'#993399'
+                }
+            }
+            else if(name==='fire'){
+                return{
+                    backgroundColor:'#FF0000'
+                }
+            }
+            
+        
+    }
 
     return (
         <View>
@@ -94,11 +114,12 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             </PageHeader>
             <View style={styles.profile}>
                 <Text style={styles.name}>{toUpperCase(name)}</Text>
-                { images && <Image style={styles.avatar} source={{ uri: images.other["official-artwork"].front_default }} />}
+                {images && <Image style={styles.avatar} source={{ uri: images.other["official-artwork"].front_default }} />}
+                
             </View>
 
 
-            
+
 
             {
                 abilities && abilities.map((item, i) => <Text key={i} >{item.ability.name}</Text>)
@@ -109,10 +130,13 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 stats && stats.map((item, i) => <Text key={i} >{item.stat.name} - {item.base_stat}</Text>)
 
             }
-            {
-                types && types.map((item, i)=> <Text key={i} >{item.type.name} </Text>)
-            }
+            <View style={styles.typesContainer}>
 
+
+                {
+                    types && types.map((item, i) => <Text key={i} style={[styles.typeItem, getBackgroundColor(item.type.name)]} >{item.type.name} </Text>)
+                }
+            </View>
         </View >
     );
 

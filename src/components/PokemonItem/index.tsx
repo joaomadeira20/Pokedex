@@ -68,6 +68,26 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, images,image, types, ab
     function toUpperCase(str:string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+    function getBackgroundColor(name:string){
+        console.log(name)
+            if(name==='grass'){
+                return {
+                    backgroundColor:'#008000'
+                }
+            }
+            else if(name==='poison'){
+                return{
+                    backgroundColor:'#993399'
+                }
+            }
+            else if(name==='fire'){
+                return{
+                    backgroundColor:'#FF0000'
+                }
+            }
+            
+        
+    }
     const { navigate } = useNavigation()
 
     //console.log(typeof(types))
@@ -80,7 +100,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, images,image, types, ab
                 <View style={styles.typesContainer}>
                     {
                         
-                        types && types.map((item, i) => <Text style={styles.typeItem} key={i} >{item.type.name} {''}</Text>)
+                        types && types.map((item, i) => <Text style={[styles.typeItem, getBackgroundColor(item.type.name)]} key={i} >{item.type.name} {''}</Text>)
 
                     }
                 </View>

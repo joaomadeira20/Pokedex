@@ -12,6 +12,25 @@ const styles = StyleSheet.create({
     name:{
         fontSize:20,
         
+    },
+    typesContainer: {
+        
+        flexDirection: 'row',
+        
+        
+
+    },
+    typeItem: {
+        backgroundColor: '#68a0cf',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#fff',
+        padding:5,
+        margin:0,
+        
+    },
+    gross:{
+        backgroundColor:'#008000'
     }
 })
 
