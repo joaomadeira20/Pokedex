@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        shadowColor: 'pink',
+    shadowOpacity: 0,elevation: 10
     },
 
     profile: {
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
         
         flexDirection: 'row',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
         
 
     },
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
         padding:5,
-        margin:0
+        margin:0, textAlign:'center'
     }
 
 

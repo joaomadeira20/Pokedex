@@ -55,7 +55,7 @@ function PokemonList({ }) {
                 m='1'
                 headerRight={
                     <BorderlessButton onPress={handleToggleFiltersVisible}>
-                        <Feather name="filter" size={20} color="#fff" />
+                        <Feather style={styles.filter} name="filter" size={20} color="#fff" />
                     </BorderlessButton>
                 }>
             </PageHeader>
