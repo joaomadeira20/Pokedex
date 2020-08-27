@@ -8,6 +8,7 @@ import styles from './styles';
 import { Feather } from '@expo/vector-icons'
 import { Pokemon } from '../../components/PokemonItem';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
+import api from '../../services/api';
 
 
 interface PokemonProps {
@@ -54,6 +55,15 @@ interface oficialatw {
 interface front {
     front_default: string
 }
+interface species{
+    species: specie
+    evolves_to:specie
+   
+}
+interface specie{
+    name:string
+    url:string
+}
 type ParamList = {
     Detail: {
         name: string;
@@ -99,6 +109,27 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         }
 
     })
+    async function  getEvolutions(){
+        const response = await api.get(`/pokemon/${route.params.name}`)
+        const url = response.data.species.url
+        const responseSpecies = await api.get(url)
+        const urlChain = responseSpecies.data.evolution_chain.url
+        const responseChain = await api.get(urlChain)
+        const arrayEvolves = responseChain.data.chain.evolves_to
+        arrayEvolves && arrayEvolves.map((item:species, i:number)=>{
+            console.log(item.species.name)
+            // console.log(item)
+            const teste = item.evolves_to
+            teste.map((item:species, i:number)=>{
+                console.log(item.species.name)
+            })
+        })
+
+
+        
+    }
+    getEvolutions()
+    
     // console.log(hp, attack, defense, special_attack, special_defense, speed)
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
@@ -181,9 +212,10 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                         </View>
                     </View>
                     <View style={styles.containerImage}>
-                        {images && <Image style={styles.avatar} source={{ uri: images.other["official-artwork"].front_default }} />}
+                        {images && <Image style={styles.avatar}  source={{ uri: images.other["official-artwork"].front_default }} />}
                         <Text style={styles.hpName}>HP: {hp}</Text>
                     </View>
+                    
                 </View>
             </View>
         </View >
