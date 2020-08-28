@@ -18,6 +18,7 @@ interface PokemonProps {
     image: string
     images: other
     types: typao[]
+
 }
 
 
@@ -55,14 +56,17 @@ interface oficialatw {
 interface front {
     front_default: string
 }
-interface species{
-    species: specie
-    evolves_to:specie
-   
+
+interface specie {
+    name: string
+    url: string
 }
-interface specie{
-    name:string
-    url:string
+
+interface itemArray {
+    name: string
+}
+interface itemArray2 {
+    urll: string
 }
 type ParamList = {
     Detail: {
@@ -72,6 +76,7 @@ type ParamList = {
         image: string
         images: other
         types: typao[]
+
     };
 };
 const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
@@ -82,6 +87,10 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const image = route.params.image
     const images = route.params.images
     const types = route.params.types
+    const nameBaby = ''
+    const [urls, setUrls] = useState([])
+    const arrayUrls: itemArray[] = []
+    const namesArray: itemArray[] = []
     let hp = 0
     let attack = 0
     let defense = 0
@@ -109,27 +118,55 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         }
 
     })
-    async function  getEvolutions(){
+
+    async function getEvolutions() {
         const response = await api.get(`/pokemon/${route.params.name}`)
         const url = response.data.species.url
         const responseSpecies = await api.get(url)
         const urlChain = responseSpecies.data.evolution_chain.url
         const responseChain = await api.get(urlChain)
         const arrayEvolves = responseChain.data.chain.evolves_to
-        arrayEvolves && arrayEvolves.map((item:species, i:number)=>{
-            console.log(item.species.name)
+        const pokemonBaby = responseChain.data.chain.species.name
+        // console.log(pokemonBaby)
+        namesArray.push(pokemonBaby)
+        arrayEvolves && arrayEvolves.map((item: any, i: number) => {
+            //  console.log(item.species.name)
+            namesArray.push(item.species.name)
             // console.log(item)
             const teste = item.evolves_to
-            teste.map((item:species, i:number)=>{
-                console.log(item.species.name)
+            teste.map((item: any, i: number) => {
+                //  console.log(item.species.name)
+                namesArray.push(item.species.name)
             })
         })
+        console.log(namesArray)
+        // console.log((namesArray))
+        namesArray.forEach(async (item: any, i: number) => {
+            const response = await api.get(`/pokemon/${item}`)
 
 
-        
+
+
+            //   console.log(response.data.sprites.front_default)
+            arrayUrls.push({name:response.data.sprites.front_default})
+            arrayUrls.map((item) => {
+                return <Image style={styles.avatar} source={{ uri: item.name }} />
+            })
+
+
+
+        })
+        // console.log(arrayUrls)
+
+
+
+
     }
+
+
     getEvolutions()
-    
+
+
     // console.log(hp, attack, defense, special_attack, special_defense, speed)
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     function handleToggleFiltersVisible() {
@@ -139,7 +176,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     function getBackgroundColor(name: string) {
-        console.log(name)
+        //console.log(name)
         if (name === 'grass') {
             return {
                 backgroundColor: '#008000'
@@ -156,12 +193,12 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             }
         }
     }
-    function getTitleTypes(){
-        console.log(types.length)
-        return types.length >1 ?  'Tipos' : 'Tipo'
+    function getTitleTypes() {
+        //console.log(types.length)
+        return types.length > 1 ? 'Tipos' : 'Tipo'
     }
     return (
-        <View>
+        <View style={styles.container}>
             <PageHeader
                 title="Pokedex da rapaziada"
                 n='eae'
@@ -171,54 +208,58 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                     </BorderlessButton>
                 }>
             </PageHeader>
-            <View style={styles.profile}>
-                <Text style={styles.name}>{toUpperCase(name)}</Text>
-                <View style={styles.information}>
-                    <View style={styles.containerInfo}>
-                        <View>
-                            <Text style={styles.abilitesTitle}>Status </Text>
-                            <View style={styles.statusItems}>
-                                <View style={styles.atkDef}>
-                                    <Text style={styles.textItem}>Ataque: {attack}</Text>
-                                    <Text style={styles.textItem}>Defesa: {defense}</Text>
-                                </View>
-                                <View style={styles.main}>
-                                    <Text style={styles.textItem}>Ataque ult: {special_attack}</Text>
-                                    <Text style={styles.textItem}>Defesa ult: {special_defense}</Text>
-                                </View>
-                                <View style={styles.speed}>
-                                    <Text style={styles.textItem}>Velocidade: {speed}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View>
-                            <Text style={styles.abilitesTitle}>Habilidades </Text>
-                            <View style={styles.abilitesItems}>
-                                {
-                                    abilities && abilities.map((item, i) => <Text key={i} style={styles.textItem} >{item.ability.name}</Text>)
-                                }
-                            </View>
-                        </View>
 
-
-                        <View>
-                            <Text style={styles.abilitesTitle}>{getTitleTypes()}</Text>
-                            <View style={styles.types}>
-                                {
-                                    types && types.map((item, i) => <Text key={i} style={[styles.textItem, getBackgroundColor(item.type.name)]} >{item.type.name} </Text>)
-                                }
+            <Text style={styles.name}>{toUpperCase(name)}</Text>
+            <View style={styles.information}>
+                <View style={styles.containerInfo}>
+                    <View>
+                        <Text style={styles.abilitesTitle}>Status </Text>
+                        <View style={styles.statusItems}>
+                            <View style={styles.atkDef}>
+                                <Text style={styles.textItem}>Ataque: {attack}</Text>
+                                <Text style={styles.textItem}>Defesa: {defense}</Text>
                             </View>
-
+                            <View style={styles.main}>
+                                <Text style={styles.textItem}>Ataque ult: {special_attack}</Text>
+                                <Text style={styles.textItem}>Defesa ult: {special_defense}</Text>
+                            </View>
+                            <View style={styles.speed}>
+                                <Text style={styles.textItem}>Velocidade: {speed}</Text>
+                            </View>
                         </View>
                     </View>
-                    <View style={styles.containerImage}>
-                        {images && <Image style={styles.avatar}  source={{ uri: images.other["official-artwork"].front_default }} />}
-                        <Text style={styles.hpName}>HP: {hp}</Text>
+                    <View>
+                        <Text style={styles.abilitesTitle}>Habilidades </Text>
+                        <View style={styles.abilitesItems}>
+                            {
+                                abilities && abilities.map((item, i) => <Text key={i} style={styles.textItem} >{item.ability.name}</Text>)
+                            }
+                        </View>
                     </View>
-                    
+
+
+                    <View>
+                        <Text style={styles.abilitesTitle}>{getTitleTypes()}</Text>
+                        <View style={styles.types}>
+                            {
+                                types && types.map((item, i) => <Text key={i} style={[styles.textItem, getBackgroundColor(item.type.name)]} >{item.type.name} </Text>)
+                            }
+                        </View>
+
+                    </View>
                 </View>
+                <View style={styles.containerImage}>
+                    {images && <Image style={styles.avatar} source={{ uri: images.other["official-artwork"].front_default }} />}
+                    <Text style={styles.hpName}>HP: {hp}</Text>
+                </View>
+
             </View>
-        </View >
+            <View style={styles.viewTeste}>
+
+            </View>
+
+        </View>
+
     );
 }
 

@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    profile: {
-
-
+    container: {
+        backgroundColor:'#CCC',
+        flex:1
     },
 
     name: {
@@ -34,11 +34,15 @@ const styles = StyleSheet.create({
     information: {
 
         alignItems: 'flex-start',
-
+        flex:1,
         flexDirection: 'row',
 
 
 
+    },
+    viewTeste:{
+        backgroundColor:'#68a0cf',
+        flex:1.3
     },
     containerImage: {
         flex: 1,
@@ -50,6 +54,10 @@ const styles = StyleSheet.create({
         marginLeft: 6,
 
 
+    },
+    imageItem:{
+        width: 100,
+        height: 100,
     },
     containerInfo: {
 

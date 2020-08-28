@@ -69,7 +69,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ name, images,image, types, ab
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     function getBackgroundColor(name:string){
-        console.log(name)
+        // console.log(name)
             if(name==='grass'){
                 return {
                     backgroundColor:'#008000'
