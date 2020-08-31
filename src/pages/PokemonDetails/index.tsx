@@ -164,7 +164,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     }
 
 
-    getEvolutions()
+
 
 
     // console.log(hp, attack, defense, special_attack, special_defense, speed)

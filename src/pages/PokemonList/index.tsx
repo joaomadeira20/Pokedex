@@ -25,16 +25,19 @@ function PokemonList({ }) {
     }, [])
 
     async function getPokemons() {
-        const response = await api.get('/pokemon/?limit=5')
+        const response = await api.get('/pokemon/?limit=10')
         // console.log(response.data)
 
         const array = response.data.results
+        // console.log(array)
         array.forEach(async (pokemon: Pokemon) => {
-            // let id = pokemon.url.split('pokemon/')
-            // const id2 = id[1].split('/')
-            const response2 = await api.get(`/pokemon/${pokemon.name}`)
+            const id = pokemon.url.split('pokemon/')
+            const id2 = id[1].split('/')
+            console.log(id2[0])
+            const response2 = await api.get(`/pokemon/${id2[0]}`)
+            // console.log(pokemon.name)
             // pokemon.id = parseInt(id2[0])
-            pokemon.image = response2.data.sprites.front_default
+             pokemon.image = response2.data.sprites.front_default
             pokemon.abilities = response2.data.abilities
             pokemon.moves = response2.data.moves
             pokemon.stats = response2.data.stats
