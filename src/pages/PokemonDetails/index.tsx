@@ -120,6 +120,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     })
 
     async function getEvolutions() {
+        console.log(route.params.name)
         const response = await api.get(`/pokemon/${route.params.name}`)
         const url = response.data.species.url
         const responseSpecies = await api.get(url)
@@ -127,44 +128,31 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         const responseChain = await api.get(urlChain)
         const arrayEvolves = responseChain.data.chain.evolves_to
         const pokemonBaby = responseChain.data.chain.species.name
-        // console.log(pokemonBaby)
         namesArray.push(pokemonBaby)
+       
         arrayEvolves && arrayEvolves.map((item: any, i: number) => {
-            //  console.log(item.species.name)
             namesArray.push(item.species.name)
-            // console.log(item)
             const teste = item.evolves_to
             teste.map((item: any, i: number) => {
-                //  console.log(item.species.name)
                 namesArray.push(item.species.name)
             })
         })
-        console.log(namesArray)
-        // console.log((namesArray))
+
         namesArray.forEach(async (item: any, i: number) => {
             const response = await api.get(`/pokemon/${item}`)
-
-
-
-
-            //   console.log(response.data.sprites.front_default)
             arrayUrls.push({name:response.data.sprites.front_default})
             arrayUrls.map((item) => {
                 return <Image style={styles.avatar} source={{ uri: item.name }} />
             })
-
+            console.log(arrayUrls);
 
 
         })
-        // console.log(arrayUrls)
-
-
-
 
     }
 
 
-
+    getEvolutions()
 
 
     // console.log(hp, attack, defense, special_attack, special_defense, speed)
