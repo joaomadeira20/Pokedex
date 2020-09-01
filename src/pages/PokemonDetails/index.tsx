@@ -9,8 +9,7 @@ import { Feather } from '@expo/vector-icons'
 import { Pokemon } from '../../components/PokemonItem';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import api from '../../services/api';
-let arrayUrls: itemArray[] = []
-let namesArray: itemArray[] = []
+
 
 
 
@@ -95,6 +94,11 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     const types = route.params.types
     const nameBaby = ''
     const [urls, setUrls] = useState([])
+    const [names, setNames] = useState([])
+
+
+
+
 
     let hp = 0
     let attack = 0
@@ -125,7 +129,12 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     })
 
     async function getEvolutions() {
-
+        let arrayUrls: itemArray[]
+        const namesArray: itemArray[] = []
+        namesArray.length = 0
+        let arrayUrls2: any = []
+        // arrayUrls.length = 0
+        
         // console.log(route.params.name)
         const response = await api.get(`/pokemon/${route.params.name}`)
         const url = response.data.species.url
@@ -141,25 +150,27 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             const teste = item.evolves_to
             teste.map((item: any, i: number) => {
                 namesArray.push(item.species.name)
+                setNames(item.species.name)
             })
         })
 
         namesArray.forEach(async (item: any, i: number) => {
             const response = await api.get(`/pokemon/${item}`)
-            arrayUrls.push(response.data.sprites.front_default)
-
+            const url = response.data.sprites.front_default
+            // arrayUrls.push(url)
+            arrayUrls2.push(url)
+            setUrls(arrayUrls2)
 
 
 
         })
-        arrayUrls.length = 0
-        namesArray.length = 0
+
     }
-    console.log(arrayUrls);
-    console.log(namesArray);
+  
+    // console.log(namesArray);
 
     useEffect(() => {
-        getEvolutions()
+
     }, [])
 
 
@@ -197,6 +208,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         return types.length > 1 ? 'Tipos' : 'Tipo'
     }
 
+    getEvolutions()
     return (
         <View style={styles.container}>
             <PageHeader
@@ -258,7 +270,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 <View style={styles.imageItems}>
                     {
 
-                        arrayUrls && arrayUrls.map((item, i) => <Image key={i} style={styles.avatar2} source={{ uri: item }} />)
+                        urls && urls.map((item, i) => <Image key={i} style={styles.avatar2} source={{ uri: item }} />)
                     }
                 </View>
 
