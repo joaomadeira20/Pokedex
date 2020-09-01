@@ -153,27 +153,31 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 setNames(item.species.name)
             })
         })
-
-        namesArray.forEach(async (item: any, i: number) => {
+        // console.log(namesArray)
+        namesArray.map(async (item: any, i: number) => {
             const response = await api.get(`/pokemon/${item}`)
+            const data = response.data
+            
             const url = response.data.sprites.front_default
             // arrayUrls.push(url)
             arrayUrls2.push(url)
+            // console.log(url)
             setUrls(arrayUrls2)
 
 
 
         })
-
+        
+      
     }
   
     // console.log(namesArray);
 
     useEffect(() => {
-
+        getEvolutions()
     }, [])
 
-
+    // console.log(urls)
 
 
 
@@ -208,7 +212,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         return types.length > 1 ? 'Tipos' : 'Tipo'
     }
 
-    getEvolutions()
+
     return (
         <View style={styles.container}>
             <PageHeader
@@ -268,10 +272,19 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
             </View>
             <View style={styles.viewTeste} >
                 <View style={styles.imageItems}>
-                    {
+                    {/* {
 
                         urls && urls.map((item, i) => <Image key={i} style={styles.avatar2} source={{ uri: item }} />)
+
+                       
+                    } */}
+                    
+                    {
+                         urls && urls.map((item, i) => {
+                            return <Image key={i} style={styles.avatar2} source={{ uri: item }} />
+                        })
                     }
+                    
                 </View>
 
             </View>
