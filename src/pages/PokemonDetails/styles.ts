@@ -55,9 +55,25 @@ const styles = StyleSheet.create({
 
 
     },
+    avatar2: {
+       
+       width:100,
+       height:100,
+       
+        marginLeft: 6,
+
+
+    },
     imageItem:{
         width: 100,
         height: 100,
+        
+    },
+    imageItems:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        
     },
     containerInfo: {
 
@@ -115,6 +131,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center'
+    },
+    evolutionImages:{
+        flexDirection:'row'
     },
     hpName: {
         textAlign: 'center',

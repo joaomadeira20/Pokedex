@@ -9,8 +9,8 @@ import { Feather } from '@expo/vector-icons'
 import { Pokemon } from '../../components/PokemonItem';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import api from '../../services/api';
-const arrayUrls: itemArray[] = []
-const namesArray: itemArray[] = []
+let arrayUrls: itemArray[] = []
+let namesArray: itemArray[] = []
 
 
 
@@ -83,10 +83,10 @@ type ParamList = {
     };
 };
 const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
-    
+
 
     const route = useRoute<RouteProp<ParamList, 'Detail'>>();
-    
+
     const name = route.params.name
     const abilities = route.params.abilities
     const stats = route.params.stats
@@ -125,6 +125,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
     })
 
     async function getEvolutions() {
+
         // console.log(route.params.name)
         const response = await api.get(`/pokemon/${route.params.name}`)
         const url = response.data.species.url
@@ -146,16 +147,21 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         namesArray.forEach(async (item: any, i: number) => {
             const response = await api.get(`/pokemon/${item}`)
             arrayUrls.push(response.data.sprites.front_default)
-            
-            
+
+
 
 
         })
-
+        arrayUrls.length = 0
+        namesArray.length = 0
     }
     console.log(arrayUrls);
-    getEvolutions()
-    
+    console.log(namesArray);
+
+    useEffect(() => {
+        getEvolutions()
+    }, [])
+
 
 
 
@@ -190,6 +196,7 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
         //console.log(types.length)
         return types.length > 1 ? 'Tipos' : 'Tipo'
     }
+
     return (
         <View style={styles.container}>
             <PageHeader
@@ -247,10 +254,14 @@ const PokemonDetails: React.FC<PokemonProps> = ({ }) => {
                 </View>
 
             </View>
-            <View style={styles.viewTeste}>
-                            {
-                            arrayUrls && arrayUrls.map((item, i)=> <Image key={i} style={styles.avatar} source={{uri:item}} /> ) 
-                            }
+            <View style={styles.viewTeste} >
+                <View style={styles.imageItems}>
+                    {
+
+                        arrayUrls && arrayUrls.map((item, i) => <Image key={i} style={styles.avatar2} source={{ uri: item }} />)
+                    }
+                </View>
+
             </View>
 
         </View>
